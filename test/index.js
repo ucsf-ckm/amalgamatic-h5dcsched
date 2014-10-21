@@ -36,6 +36,8 @@ describe('search()', function () {
 
 		sched.search({}, function (err, result) {
 
+			console.dir(result.data[134]);
+
 			expect(result.data).to.contain({
 				url: 'http://html5devconf.com/speakers/rich_trott.html#session', 
 				name: 'Curing Cancer With HTML5',
