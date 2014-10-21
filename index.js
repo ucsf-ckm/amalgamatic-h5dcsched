@@ -40,6 +40,19 @@ exports.search = function (query, callback) {
                 }
                 var urlPath = thisMess.first().children('a').first().attr('href') || '';
 
+                var speakers = [];
+                var room = '';
+                var myMess;
+                thisMess.each(function (index, element) {
+                    myMess = $(element).text();
+                    if (myMess.indexOf('Room: ') === 0) {
+                        room = myMess.substring(6);
+                    }
+                    if (myMess.indexOf('Speaker: ') === 0) {
+                        speakers.push(myMess.substring(9));
+                    }
+                });
+
                 var date = $(this).parent().children().first().text();
                 date = date.substring(date.indexOf(' ')+1);
 
@@ -52,8 +65,8 @@ exports.search = function (query, callback) {
                 result.push({
                     name: name,
                     url: url.resolve(options.url, urlPath),
-                    speaker: thisMess.eq(1).text().substring(9),
-                    room: thisMess.eq(2).text().substring(6),
+                    speakers: speakers,
+                    room: room,
                     start: start,
                     end: end
                 });
