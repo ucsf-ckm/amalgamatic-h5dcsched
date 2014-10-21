@@ -2,9 +2,14 @@ var cheerio = require('cheerio');
 var http = require('http');
 var url = require('url');
 var moment = require('moment');
+var extend = require('util-extend');
 
 var options = {
     url: 'http://html5devconf.com/schedule.html'
+};
+
+exports.setOptions = function (newOptions) {
+    options = extend(options, newOptions);
 };
 
 exports.search = function (query, callback) {
