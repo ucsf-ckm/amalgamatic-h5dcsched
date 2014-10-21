@@ -92,4 +92,17 @@ describe('search()', function () {
 			done();
 		});
 	});
+
+	it('should allow alternate URL to be set with setOptions()', function (done) {
+		nock('http://cors-anywhere.herokuapp.com')
+			.get('/html5devconf.com/schedule.html')
+			.replyWithFile(200, __dirname + '/fixtures/schedule.html');
+
+		sched.setOptions({url: 'http://cors-anywhere.herokuapp.com/html5devconf.com/schedule.html'});
+		sched.search({}, function (err, result) {
+			expect(err).to.be.not.ok;
+			expect(result).to.be.ok;
+			done();
+		});
+	});
 });

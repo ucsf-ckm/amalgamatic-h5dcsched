@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "cheerio": "^0.17.0",
-    "moment": "^2.8.3"
+    "moment": "^2.8.3",
+    "util-extend": "^1.0.1"
   }
 }
