@@ -23,6 +23,7 @@ describe('search()', function () {
 			revert();
 			revert = null;
 		}
+
 		nock.cleanAll();
 		nock.disableNetConnect();
 		done();
@@ -38,7 +39,7 @@ describe('search()', function () {
 			expect(result.data).to.contain({
 				url: 'http://html5devconf.com/speakers/rich_trott.html#session', 
 				name: 'Curing Cancer With HTML5',
-				speaker: 'Rich Trott, UC San Francisco',
+				speakers: ['Rich Trott, UC San Francisco'],
 				room: 'E-131',
 				start: '2014-10-21T17:00:00-07:00',
 				end: '2014-10-21T17:20:00-07:00'
@@ -102,6 +103,47 @@ describe('search()', function () {
 		sched.search({}, function (err, result) {
 			expect(err).to.be.not.ok;
 			expect(result).to.be.ok;
+			sched.setOptions({url: 'http://html5devconf.com/schedule.html'});
+			done();
+		});
+	});
+
+	it('should handle no speakers', function (done) {
+		nock('http://html5devconf.com')
+			.get('/schedule.html')
+			.replyWithFile(200, __dirname + '/fixtures/schedule.html');
+
+		sched.search({}, function (err, result) {
+
+			expect(result.data).to.contain({
+					url: 'http://html5devconf.com/speakers.html', 
+					name: 'Overflow',
+					speakers: [],
+					room: 'E-133',
+					start: '2014-10-20T09:00:00-07:00',
+					end: '2014-10-20T09:20:00-07:00'
+			});
+
+			done();
+		});
+	});
+
+	it('should handle multiple speakers', function (done) {
+		nock('http://html5devconf.com')
+			.get('/schedule.html')
+			.replyWithFile(200, __dirname + '/fixtures/schedule.html');
+
+		sched.search({}, function (err, result) {
+
+			expect(result.data).to.contain({
+					url: 'http://html5devconf.com/speakers/vlad_vukicevic.html#session', 
+					name: 'Virtual Reality & The Future of the Web (50min, Part 1)',
+					speakers: ['Vlad Vukicevic, Mozilla', 'Josh Carpenter , Mozilla'],
+					room: 'E-135',
+					start: '2014-10-20T11:40:00-07:00',
+					end: '2014-10-20T12:00:00-07:00'
+			});
+
 			done();
 		});
 	});
