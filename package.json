@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/ucsf-ckm/amalgamatic-h5dcsched.git"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "test": "node_modules/lab/bin/lab -t 100"
   },
