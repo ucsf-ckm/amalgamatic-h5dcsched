@@ -1,0 +1,29 @@
+{
+  "name": "amalgamatic-h5dcsched",
+  "description": "Amalgamatic plugin for the HTML5DevConf schedule",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ucsf-ckm/amalgamatic-h5dcsched.git"
+  },
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node_modules/lab/bin/lab -t 100"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "amalgamatic-plugin"
+  ],
+  "devDependencies": {
+    "jshint": "^2.5.6",
+    "lab": "^4.7.0",
+    "nock": "^0.48.1",
+    "precommit-hook": "^1.0.7",
+    "rewire": "^2.1.0"
+  },
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "moment": "^2.8.3"
+  }
+}
