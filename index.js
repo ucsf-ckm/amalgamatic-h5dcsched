@@ -1,8 +1,10 @@
 var cheerio = require('cheerio');
 var http = require('http');
 var url = require('url');
-var moment = require('moment');
 var extend = require('util-extend');
+var moment = require('moment');
+
+var timeOffset = '-0700';  // Offset of conference timezone for human-readable timestamps/easier testing.
 
 var options = {
     url: 'http://html5devconf.com/schedule.html'
@@ -59,8 +61,8 @@ exports.search = function (query, callback) {
                 var times = $(this).parent().parent().children().first().text();
                 var startTime = times.substring(0,times.indexOf(' '));
                 var endTime = times.substring(times.indexOf('-')+2);
-                var start = moment(date + ' ' + startTime + ' -0700', 'MMMM DD hh:mma ZZ').format();
-                var end = moment(date + ' ' + endTime + ' -0700', 'MMMM DD hh:mma ZZ').format();
+                var start = moment(date + ' ' + startTime + ' ' + timeOffset, 'MMMM DD hh:mma ZZ').zone(timeOffset).format();
+                var end = moment(date + ' ' + endTime + ' ' + timeOffset, 'MMMM DD hh:mma ZZ').zone(timeOffset).format();
 
                 result.push({
                     name: name,
